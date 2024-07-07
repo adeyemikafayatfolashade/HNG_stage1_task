@@ -1,28 +1,93 @@
-Linux User Creation Bash Script
-Task Details:
-Your company has employed many new developers. As a SysOps engineer, your task is to write a bash script called create_users.sh that reads a text file containing the employee’s usernames and group names, where each line is formatted as user;groups.
+# DevOps Stage 1: Linux User Creation Bash Script
 
-The script should:
-Create users and groups as specified.
-Set up home directories with appropriate permissions and ownership.
-Generate random passwords for the users.
-Log all actions to /var/log/user_management.log.
-Store the generated passwords securely in /var/secure/user_passwords.txt.
-Ensure error handling for scenarios like existing users.
-Provide clear documentation and comments within the script.
+## Overview
 
-Steps i took in completing the task:
-I created the script in my terminal (following all the requirements).
+This project contains a bash script called `create_users.sh` that automates the creation of users and groups based on an input text file. The script sets up home directories, assigns users to groups, generates random passwords, logs all actions, and securely stores passwords.
 
-I made the Script Executable:
-chmod +x create_users.sh
+## Task Requirements
 
-I created a text file named employees.txt with the required usernames and groups format.
+- **Create users and groups**: Users and their groups are created as specified in the input file.
+- **Set up home directories**: Home directories are created with appropriate permissions.
+- **Generate random passwords**: Random passwords are generated and securely stored.
+- **Log actions**: All actions are logged to `/var/log/user_management.log`.
+- **Secure password storage**: Passwords are stored securely in `/var/secure/user_passwords.txt`.
 
-I ran the script:
-sudo ./create_users.sh users.txt
+## Usage
 
-I created a new Repository on my github account and uploaded the create_users.sh script.
+1. **Prepare the Input File**: Create a text file employees.txt with usernames and groups:
+    ```
+    fola;rocky,shade,friends
+    wunmi;shade
+    frank;friends,rocky 
+    ```
 
-Technical Article
-I wrote a detailed explanation of the script which can be found at  https://dly.to/AGykPLk5Lpf
+2. **Clone the Repository**: Clone the repository to your local machine.
+    ```bash
+    git clone https://github.com/adeyemikafayatfolashade/HNG_stage1_task.git
+    cd HNG_stage1_task.git
+    ```
+
+3. **Set Permissions**: Make the script executable.
+    ```bash
+    chmod +x create_users.sh
+    ```
+
+4. **Create Necessary Directories**: Ensure directories for logging and password storage exist.
+    ```bash
+    sudo mkdir -p /var/secure
+    sudo chmod 700 /var/secure
+    ```
+
+5. **Run the Script**: Execute the script with the input file.
+    ```bash
+    sudo ./create_users.sh users.txt
+    ```
+
+**Verification**:
+
+1. **Check if users are created**:
+    ```bash
+    id fola
+    id wunmi
+    id frank
+    ```
+
+2. **Check if groups are created**:
+    ```bash
+    getent group shade
+    getent group rocky
+    getent group friends
+    ```
+
+3. **Check if personal groups are created**:
+    ```bash
+    getent group fola
+    getent group wunmi
+    getent group frank
+    ```
+
+4. **Check if users belong to all specified groups**:
+    ```bash
+    id fola
+    id wunmi
+    id frank
+    ```
+
+5. **Check if passwords are stored securely**:
+    ```bash
+    sudo ls -l /var/secure/user_passwords.txt
+    ```
+
+6. **Check log file for actions**:
+    ```bash
+    sudo less /var/log/user_management.log
+    ```
+
+## Technical Article
+
+A detailed explanation of the script can be found in the technical article linked below. The article covers the reasoning behind each step in the script, error handling, and best practices.
+(<https://dly.to/AGykPLk5Lpf>)
+
+Learn more about the HNG Internship:
+- [HNG Internship](https://hng.tech/internship)
+- [Hire HNG Interns](https://hng.tech/hire) 
